@@ -1,7 +1,0 @@
-Flask>=2.3.0
-Flask-Login>=0.6.2
-Flask-SQLAlchemy>=3.0.0
-Flask-Migrate>=4.0.0
-Flask-WTF>=1.1.1
-python-barcode>=0.14.0
-Werkzeug>=2.3.0 
