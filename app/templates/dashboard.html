@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card text-bg-primary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Total Stock Value</h5>
+        <p class="card-text display-6">${{ '%.2f'|format(total_value) }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <canvas id="stockChart" height="100"></canvas>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Low Stock Items (&lt; 10)</h4>
+    <ul class="list-group">
+      {% for item in low_stock_items %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ item.name }} ({{ item.quantity }})
+        <span class="badge bg-warning text-dark">Low</span>
+      </li>
+      {% else %}
+      <li class="list-group-item">No low stock items!</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  const ctx = document.getElementById('stockChart').getContext('2d');
+  const data = {
+    labels: {{ category_names|tojson }},
+    datasets: [{
+      label: 'Stock Value by Category',
+      data: {{ category_stock_values|tojson }},
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }]
+  };
+  new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } }
+    }
+  });
+</script>
+{% endblock %} 
