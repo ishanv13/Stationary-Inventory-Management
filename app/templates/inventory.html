@@ -65,7 +65,7 @@
       <td>{{ item.name }}</td>
       <td>{{ item.category.name if item.category else '' }}</td>
       <td>{{ item.quantity }}</td>
-      <td>${{ '%.2f'|format(item.price) }}</td>
+      <td>₹{{ '%.2f'|format(item.price) }}</td>
       <td>
         <a href="{{ url_for('inventory.barcode', item_id=item.id) }}" class="btn btn-outline-secondary btn-sm">Barcode</a>
       </td>
